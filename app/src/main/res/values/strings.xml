@@ -1,0 +1,15 @@
+<resources>
+    <!-- System -->
+    <string name="app_name">Examen</string>
+
+    <!-- Colors -->
+    <color name="color_background">#383434</color>
+    <color name="color_boton">#2C2C2C</color>
+
+    <!-- Stings -->
+    <string name="aplicacion">ProgramaYa</string>
+    <string name="botton_de_inicio">Ingresar sesión</string>
+
+    <!-- IDK random thing that i don't understand -->
+    <string name="imagen_del_logo_del_aplicacion">imagen del logo del aplicacion</string>
+</resources>
