@@ -1,14 +1,27 @@
 <resources>
     <!-- System -->
     <string name="app_name">Examen</string>
+    <string name="logo">Logo Icon</string>
 
     <!-- Colors -->
     <color name="color_background">#383434</color>
-    <color name="color_boton">#2C2C2C</color>
+    <color name="color_boton">#8B8B8B</color>
 
     <!-- Stings -->
     <string name="aplicacion">ProgramaYa</string>
     <string name="botton_de_inicio">Ingresar sesión</string>
+
+    <string name="registrar_txt">Registrar</string>
+    <string name="login_txt">Login</string>
+    <string name="nombre_txt">Nombre:</string>
+    <string name="correo_txt">Correo:</string>
+    <string name="contraseña_txt">Contraseña:</string>
+    <string name="ya_tener_cuenta">Ya tienes cuenta?</string>
+    <string name="no_tener_cuenta">No tienes cuenta, Registrate</string>
+
+    <string name="user">usuario</string>
+    <string name="correo">correo</string>
+    <string name="contraseña">contraseña</string>
 
     <!-- IDK random thing that i don't understand -->
     <string name="imagen_del_logo_del_aplicacion">imagen del logo del aplicacion</string>
