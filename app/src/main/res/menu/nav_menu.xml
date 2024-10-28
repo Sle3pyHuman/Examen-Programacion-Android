@@ -9,4 +9,9 @@
     <item
         android:id="@+id/nav_publicar"
         android:title="@string/str_publicar_eventos"/>
+    <item
+        android:id="@+id/nav_logout"
+        android:title="@string/logout"
+        android:titleTextColor="@color/red"
+        />
 </menu>

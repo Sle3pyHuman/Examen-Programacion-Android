@@ -1,5 +1,6 @@
 package com.example.examen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -56,6 +57,9 @@ private BottomNavigationView bottomNav;
                     fragmentSeleccionado = new FiltroFragment();
                 } else if (id == R.id.nav_publicar) {
                     fragmentSeleccionado = new PublicarFragment();
+                } else if (id == R.id.nav_logout) {
+                    logout();
+                    return true;
                 }
 
                 if (fragmentSeleccionado != null) {
@@ -78,9 +82,20 @@ private BottomNavigationView bottomNav;
             }
 
             if (fragmentSeleccionado != null) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.frangment_container, fragmentSeleccionado).commit();
+                cargarFragmento(fragmentSeleccionado);
             }
             return true;
         });
+    }
+
+    private void cargarFragmento(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.frangment_container, fragment).commit();
+    }
+
+    private void logout() {
+        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }
