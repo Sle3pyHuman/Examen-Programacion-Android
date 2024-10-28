@@ -9,11 +9,34 @@
     android:background="@color/color_background"
     tools:context=".HomeActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:labelVisibilityMode="labeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_nav" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="412dp"
+            android:layout_height="652dp"
+            android:layout_weight="1"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <!-- Contenido Principal -->
-    <FrameLayout
-        android:id="@+id/frangment_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
 
     <!-- Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
@@ -25,11 +48,4 @@
         app:headerLayout="@layout/header_layout" />
 
     <!-- Menu de abajo -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom = "true"
-        app:menu="@menu/bottom_nav"
-        app:labelVisibilityMode="labeled"/>
 </androidx.drawerlayout.widget.DrawerLayout>

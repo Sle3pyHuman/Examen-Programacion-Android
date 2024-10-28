@@ -16,9 +16,11 @@ import java.util.List;
 
 public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventViewHolder> {
     private List<Evento> eventoList;
+    private Context context;
 
-    public EventoAdapter(List<Evento> eventoList){
+    public EventoAdapter(List<Evento> eventoList, Context context){
         this.eventoList = eventoList;
+        this.context = context;
     }
 
     @NonNull
@@ -37,8 +39,6 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventViewH
         holder.textViewFecha.setText(evento.getFecha());
         holder.textViewHora.setText(evento.getHora_inicio());
 
-        Bitmap bitmap = BitmapFactory.decodeFile(evento.getImagenURL());
-        holder.eventImagen.setImageBitmap(bitmap);
     }
 
     @Override
@@ -53,6 +53,7 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventViewH
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitulo = itemView.findViewById(R.id.titulo_evento);
+            eventImagen = itemView.findViewById(R.id.flayer);
             textViewDescripcion = itemView.findViewById(R.id.descripcion_evento);
             textViewFecha = itemView.findViewById(R.id.fecha_evento);
             textViewHora = itemView.findViewById(R.id.horaInicio_Evento);

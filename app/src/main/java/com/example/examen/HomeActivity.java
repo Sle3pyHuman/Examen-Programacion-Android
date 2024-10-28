@@ -3,6 +3,7 @@ package com.example.examen;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -13,93 +14,63 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity {
 
-private DrawerLayout dwLayout;
-private NavigationView navView;
-private ActionBarDrawerToggle toggle;
-private BottomNavigationView bottomNav;
+    private RecyclerView recyclerViewEvents;
+    private EventoAdapter eventoAdapter;
+    private Button btnVerMapa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.home), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        recyclerViewEvents = findViewById(R.id.recyclerView);
+        btnVerMapa = findViewById(R.id.bottom_map);
+
+        // Initialize the list of events
+        List<Evento> eventList = getEvents();
+
+        // Set up RecyclerView
+        recyclerViewEvents.setLayoutManager(new LinearLayoutManager(this));
+        eventoAdapter = new EventoAdapter(eventList, this); // Pass List<Evento> and Context
+        recyclerViewEvents.setAdapter(eventoAdapter);
+
+        // Button to navigate to map
+        btnVerMapa.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, MapaActivity.class);
+            startActivity(intent);
         });
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frangment_container, new EventoFragment()).commit();
-        }
-
-        dwLayout = findViewById(R.id.home);
-        navView = findViewById(R.id.nav_view);
-        bottomNav = findViewById(R.id.bottom_nav_view);
-
-        toggle = new ActionBarDrawerToggle(this, dwLayout, R.string.open, R.string.close);
-        dwLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.frangment_container, new HomeFragment()).commit();
-
-        // Manejo del navigation
-        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragmentSeleccionado = null;
-                int id = item.getItemId();
-                if (id == R.id.nav_ver_eventos) {
-                    fragmentSeleccionado = new EventoFragment();
-                } else if (id == R.id.nav_filtrar) {
-                    fragmentSeleccionado = new FiltroFragment();
-                } else if (id == R.id.nav_publicar) {
-                    fragmentSeleccionado = new PublicarFragment();
-                } else if (id == R.id.nav_logout) {
-                    logout();
+        // Bottom Navigation setup
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav_view);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.bottom_home:
+                    // Stay on the same activity
                     return true;
-                }
-
-                if (fragmentSeleccionado != null) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frangment_container, fragmentSeleccionado).commit();
-                }
-
-                dwLayout.closeDrawers();
-                return true;
+                case R.id.bottom_map:
+                    Intent intent = new Intent(HomeActivity.this, MapaActivity.class);
+                    startActivity(intent);
+                    return true;
             }
-        });
-
-        // Manejo de bottom navigation
-        bottomNav.setOnNavigationItemSelectedListener(item -> {
-            Fragment fragmentSeleccionado = null;
-            int id = item.getItemId();
-            if (id == R.id.bottom_home) {
-                fragmentSeleccionado = new HomeFragment();
-            } else if ( id == R.id.bottom_map) {
-                fragmentSeleccionado = new MapaFragment();
-            }
-
-            if (fragmentSeleccionado != null) {
-                cargarFragmento(fragmentSeleccionado);
-            }
-            return true;
+            return false;
         });
     }
 
-    private void cargarFragmento(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frangment_container, fragment).commit();
-    }
-
-    private void logout() {
-        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
+    private List<Evento> getEvents() {
+        List<Evento> events = new ArrayList<>();
+        // Populate list with sample data for testing
+        events.add(new Evento("Title 1", "Description 1", R.drawable.flayer));
+        events.add(new Evento("Title 2", "Description 2", R.drawable.sample_image2));
+        return events;
     }
 }
