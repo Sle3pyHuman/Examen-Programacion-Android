@@ -14,7 +14,7 @@
         android:id="@+id/imgLogo"
         android:layout_width="140dp"
         android:layout_height="137dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="92dp"
         android:layout_marginEnd="32dp"
         android:contentDescription="@string/imagen_del_logo_del_aplicacion"
         android:src="@mipmap/ic_logo_foreground"
@@ -47,5 +47,7 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextContrastCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
