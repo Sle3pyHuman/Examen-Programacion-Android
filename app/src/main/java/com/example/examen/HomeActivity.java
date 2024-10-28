@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends AppCompatActivity {
@@ -20,6 +21,7 @@ public class HomeActivity extends AppCompatActivity {
 private DrawerLayout dwLayout;
 private NavigationView navView;
 private ActionBarDrawerToggle toggle;
+private BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ private ActionBarDrawerToggle toggle;
 
         dwLayout = findViewById(R.id.home);
         navView = findViewById(R.id.nav_view);
+        bottomNav = findViewById(R.id.bottom_nav_view);
 
         toggle = new ActionBarDrawerToggle(this, dwLayout, R.string.open, R.string.close);
         dwLayout.addDrawerListener(toggle);
@@ -62,6 +65,22 @@ private ActionBarDrawerToggle toggle;
                 dwLayout.closeDrawers();
                 return true;
             }
+        });
+
+        // Manejo de bottom navigation
+        bottomNav.setOnNavigationItemSelectedListener(item -> {
+            Fragment fragmentSeleccionado = null;
+            int id = item.getItemId();
+            if (id == R.id.bottom_home) {
+                fragmentSeleccionado = new HomeFragment();
+            } else if ( id == R.id.bottom_map) {
+                fragmentSeleccionado = new MapaFragment();
+            }
+
+            if (fragmentSeleccionado != null) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frangment_container, fragmentSeleccionado).commit();
+            }
+            return true;
         });
     }
 }
