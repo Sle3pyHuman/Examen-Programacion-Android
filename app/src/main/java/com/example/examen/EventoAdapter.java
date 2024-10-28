@@ -1,6 +1,8 @@
 package com.example.examen;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,16 +11,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventViewHolder> {
-    private Context context;
     private List<Evento> eventoList;
 
-    public EventoAdapter(Context context, List<Evento> eventoList){
-        this.context = context;
+    public EventoAdapter(List<Evento> eventoList){
         this.eventoList = eventoList;
     }
 
@@ -33,10 +32,13 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventViewH
     public void onBindViewHolder(@NonNull EventoAdapter.EventViewHolder holder, int position) {
         Evento evento = eventoList.get(position);
 
-        holder.eventTitulo.setText(evento.getTitulo());
-        holder.eventDescripcion.setText(evento.getDescripcion());
+        holder.textViewTitulo.setText(evento.getTitulo());
+        holder.textViewDescripcion.setText(evento.getDescripcion());
+        holder.textViewFecha.setText(evento.getFecha());
+        holder.textViewHora.setText(evento.getHora_inicio());
 
-        Glide.with(context).load(evento.getImagenURL()).placeholder(R.drawable.flayer).into(holder.eventImagen);
+        Bitmap bitmap = BitmapFactory.decodeFile(evento.getImagenURL());
+        holder.eventImagen.setImageBitmap(bitmap);
     }
 
     @Override
@@ -45,14 +47,15 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventViewH
     }
 
     public static class EventViewHolder extends RecyclerView.ViewHolder {
-        TextView eventTitulo, eventDescripcion;
+        TextView textViewTitulo, textViewDescripcion, textViewFecha, textViewHora;
         ImageView eventImagen;
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
-            eventTitulo = itemView.findViewById(R.id.titulo_evento);
-            eventDescripcion = itemView.findViewById(R.id.descripcion_evento);
-            eventImagen = itemView.findViewById(R.id.flayer);
+            textViewTitulo = itemView.findViewById(R.id.titulo_evento);
+            textViewDescripcion = itemView.findViewById(R.id.descripcion_evento);
+            textViewFecha = itemView.findViewById(R.id.fecha_evento);
+            textViewHora = itemView.findViewById(R.id.horaInicio_Evento);
         }
     }
 }

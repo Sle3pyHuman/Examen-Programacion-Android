@@ -42,7 +42,7 @@
         tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck" />
 
     <TextView
-        android:id="@+id/txtSiCuenta"
+        android:id="@+id/txtNoCuenta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="52dp"

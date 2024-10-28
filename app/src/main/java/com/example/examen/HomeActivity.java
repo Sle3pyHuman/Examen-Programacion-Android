@@ -35,6 +35,10 @@ private BottomNavigationView bottomNav;
             return insets;
         });
 
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.frangment_container, new EventoFragment()).commit();
+        }
+
         dwLayout = findViewById(R.id.home);
         navView = findViewById(R.id.nav_view);
         bottomNav = findViewById(R.id.bottom_nav_view);
