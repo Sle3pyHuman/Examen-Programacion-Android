@@ -36,6 +36,7 @@ public class HomeActivity extends AppCompatActivity {
 
         setupNavigationDrawer();
         setupOpenDrawerButton();
+        setupBottomNavigation();
     }
     private void logout() {
         Intent intent = new Intent(HomeActivity.this, InicioActivity.class);
@@ -92,4 +93,23 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void setupBottomNavigation() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav_view);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.bottom_map) {
+                    startActivity(new Intent(HomeActivity.this, MapaActivity.class));
+                    finish();
+                    return true;
+                } else if (item.getItemId() == R.id.bottom_home) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+    }
+
 }
