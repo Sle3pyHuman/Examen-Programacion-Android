@@ -37,6 +37,12 @@ public class HomeActivity extends AppCompatActivity {
         setupNavigationDrawer();
         setupOpenDrawerButton();
         setupBottomNavigation();
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new HomeFragment())
+                    .commit();
+        }
     }
     private void logout() {
         Intent intent = new Intent(HomeActivity.this, InicioActivity.class);
@@ -63,22 +69,17 @@ public class HomeActivity extends AppCompatActivity {
 
     private void menejoNavigationItemSeleccionado(MenuItem item) {
         int id = item.getItemId();
-        Fragment selectedFragment = null;
 
         if (id == R.id.nav_ver_eventos) {
-            selectedFragment = new VerEventoFragment();
+            // selectedFragment = new VerEventoFragment();
         } else if (id == R.id.nav_filtrar) {
-            selectedFragment = new FiltrarFragment();
+            // selectedFragment = new FiltrarFragment();
         } else if (id == R.id.nav_publicar) {
-            selectedFragment = new PublicarFragment();
+            Intent intent = new Intent(this, PublicarActivity.class);
+            startActivity(intent);
+            drawerLayout.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_logout) {
             logout();
-        }
-
-        if (selectedFragment != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_frame, selectedFragment)
-                    .commit();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -96,18 +97,21 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setupBottomNavigation() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav_view);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.bottom_map) {
-                    startActivity(new Intent(HomeActivity.this, MapaActivity.class));
-                    finish();
-                    return true;
-                } else if (item.getItemId() == R.id.bottom_home) {
-                    return true;
-                } else {
-                    return false;
-                }
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.bottom_home) {
+                // Load HomeFragment
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new HomeFragment())
+                        .commit();
+                return true;
+            } else if (item.getItemId() == R.id.bottom_map) {
+                // Load MapaFragment
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new MapaFragment())
+                        .commit();
+                return true;
+            } else {
+                return false;
             }
         });
     }
