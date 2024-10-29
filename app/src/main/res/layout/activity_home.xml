@@ -3,16 +3,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_background"
     tools:context=".HomeActivity">
 
+    <!-- Contenido principal -->
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/open_drawer_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open Drawer"
+            android:layout_gravity="top|end"
+            android:layout_margin="16dp" />
+    </FrameLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
+        <!-- Bottom Navigation -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav_view"
             android:layout_width="match_parent"
@@ -23,20 +39,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
+            android:layout_gravity="bottom"
             app:menu="@menu/bottom_nav" />
 
+        <!-- Recycler View -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="412dp"
             android:layout_height="652dp"
             android:layout_weight="1"
             android:padding="8dp"
+            android:layout_gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Contenido Principal -->
-
 
     <!-- Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
@@ -46,6 +62,4 @@
         android:layout_gravity="start"
         app:menu="@menu/nav_menu"
         app:headerLayout="@layout/header_layout" />
-
-    <!-- Menu de abajo -->
 </androidx.drawerlayout.widget.DrawerLayout>
